@@ -50,6 +50,10 @@ cargo run -p sandbox
 cargo run -p sandbox --release
 ```
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a complete history of changes and version releases.
+
 ## Troubleshooting
 
 ### Graphics Driver Issues
