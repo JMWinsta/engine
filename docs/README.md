@@ -32,4 +32,4 @@ When updating the architecture or system design:
   - Mermaid (for text-based diagrams)
   - Any vector graphics editor
 
-*Last updated: [Current Date]*
+_Last updated: [Current Date]_

@@ -14,6 +14,7 @@ This is a Cargo workspace containing:
 - High-performance graphics rendering using wgpu
 - Cross-platform support (Windows, Linux, macOS)
 - Vulkan, DirectX 12, and OpenGL backends
+- 2D Physics Engine (Rigid bodies, SAT collision, Impulse resolution)
 - Entity-component system architecture
 - Input handling
 - Window management with winit
@@ -62,13 +63,14 @@ If you encounter `STATUS_ACCESS_VIOLATION` errors:
 
 1. Update your graphics drivers to the latest version
 2. Try forcing a specific backend:
+
    ```bash
    # Force Vulkan
    WGPU_BACKEND=vulkan cargo run -p sandbox
-   
+
    # Force DirectX 12
    WGPU_BACKEND=dx12 cargo run -p sandbox
-   
+
    # Force OpenGL
    WGPU_BACKEND=gl cargo run -p sandbox
    ```

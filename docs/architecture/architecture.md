@@ -25,6 +25,15 @@ Entities are the basic building blocks of game objects:
 - **Components**: Data attached to entities (position, velocity, renderable, etc.)
 - **Systems**: Logic that operates on entities with specific components
 
+### Physics System
+
+The physics system implements a custom 2D rigid body dynamics engine:
+
+- **Broadphase**: Uniform Grid spatial partitioning to quickly find collision candidates.
+- **Narrowphase**: Separating Axis Theorem (SAT) for precise collision manifolds (circle, AABB, polygon).
+- **Solver**: Sequential impulse resolution handling positional error correction, bouncing, and Coulomb friction.
+- **Integrator**: Semi-implicit Euler integration, applying gravity, dampening, and tracking sleep states.
+
 ### Input System
 
 Handles user input from keyboard, mouse, and other devices:
@@ -46,6 +55,8 @@ Manages the application window using winit:
 ```
 Input Events → Input System → Entity Updates
                     ↓
+Entity Updates → Physics System → Integrator → Resolved Collision State
+                    ↓
 Window Events → Window System → Surface Updates
                     ↓
 Entity Data → Renderer System → GPU Commands → Display
@@ -53,7 +64,7 @@ Entity Data → Renderer System → GPU Commands → Display
 
 ## Future Extensions
 
-- Physics system integration
+- 3D Physics and Rendering upgrade
 - Audio system
 - Networking capabilities
 - Asset loading and management
@@ -71,4 +82,4 @@ Entity Data → Renderer System → GPU Commands → Display
 
 See the [diagrams/](diagrams/) folder for visual architecture diagrams.
 
-*Last updated: [Current Date]*
+_Last updated: 2026-04-05_

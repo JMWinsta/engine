@@ -48,23 +48,29 @@ impl PrimitiveRenderer {
             .create_surface(window.clone())
             .map_err(|e| crate::EngineError::RendererInit(e.to_string()))?;
 
-        let mut adapter = instance.request_adapter(&wgpu::RequestAdapterOptions {
-            power_preference: wgpu::PowerPreference::HighPerformance,
-            compatible_surface: Some(&surface),
-            force_fallback_adapter: false,
-        }).await;
+        let mut adapter = instance
+            .request_adapter(&wgpu::RequestAdapterOptions {
+                power_preference: wgpu::PowerPreference::HighPerformance,
+                compatible_surface: Some(&surface),
+                force_fallback_adapter: false,
+            })
+            .await;
 
         // If High Performance failed, try literally anything else
         if adapter.is_none() {
             println!("HighPerformance adapter not found. Falling back to default...");
-            adapter = instance.request_adapter(&wgpu::RequestAdapterOptions {
-                power_preference: wgpu::PowerPreference::default(),
-                compatible_surface: Some(&surface),
-                force_fallback_adapter: false,
-            }).await;
+            adapter = instance
+                .request_adapter(&wgpu::RequestAdapterOptions {
+                    power_preference: wgpu::PowerPreference::default(),
+                    compatible_surface: Some(&surface),
+                    force_fallback_adapter: false,
+                })
+                .await;
         }
 
-        let adapter = adapter.expect("No suitable GPU adapter found. Ensure your drivers support Vulkan/DX12/OpenGL");
+        let adapter = adapter.expect(
+            "No suitable GPU adapter found. Ensure your drivers support Vulkan/DX12/OpenGL",
+        );
 
         let (device, queue) = adapter
             .request_device(&wgpu::DeviceDescriptor::default(), None)

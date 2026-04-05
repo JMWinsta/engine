@@ -10,6 +10,7 @@ The engine follows a modular architecture with clear separation of concerns:
 - **window.rs**: Window and event management
 - **input.rs**: Input handling and processing
 - **entity.rs**: Entity-component system foundation
+- **physics/mod.rs**: Core rigid body 2D physics engine
 - **loop.rs**: Main game loop and timing
 - **lib.rs**: Public API and module exports
 
@@ -36,6 +37,7 @@ pub struct Renderer {
 ```
 
 **Responsibilities:**
+
 - Initialize wgpu instance and adapters
 - Create device and command queue
 - Manage surface configuration
@@ -52,6 +54,7 @@ pub struct Window {
 ```
 
 **Responsibilities:**
+
 - Create and manage application window
 - Handle window events (resize, close, etc.)
 - Provide surface for rendering
@@ -68,10 +71,30 @@ pub struct Input {
 ```
 
 **Responsibilities:**
+
 - Track keyboard key states
 - Monitor mouse position and buttons
 - Process input events
 - Provide input state queries
+
+### Physics Component
+
+```rust
+pub struct PhysicsWorld {
+    pub bodies: Vec<RigidBody>,
+    pub gravity: Vec2,
+    pub iterations: u32,
+    pub sub_steps: u32,
+    broadphase: UniformGrid,
+}
+```
+
+**Responsibilities:**
+
+- Model kinematics, momentum, constraints, and rest iterations
+- Dispatch AABB boundaries to a uniform spatial grid
+- Execute Separating Axis Theorem (SAT) narrowed checks
+- Perform semi-implicit euler interpolation integration
 
 ## Error Handling
 
@@ -85,16 +108,19 @@ The engine uses `anyhow` for comprehensive error handling:
 ## Performance Optimizations
 
 ### GPU Utilization
+
 - Asynchronous command submission
 - Efficient buffer management
 - Minimized CPU-GPU synchronization
 
 ### Memory Management
+
 - Proper resource cleanup
 - Efficient data structures
 - Minimal allocations during runtime
 
 ### Frame Timing
+
 - Fixed timestep updates
 - Variable rendering rate
 - Frame rate independence
@@ -122,4 +148,4 @@ The modular design allows for easy extension:
 - Asset bundling
 - Platform-specific packaging
 
-*Last updated: [Current Date]*
+_Last updated: 2026-04-05_

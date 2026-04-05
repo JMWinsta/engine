@@ -3,6 +3,7 @@ pub mod input;
 pub mod r#loop;
 pub mod renderer;
 pub mod window;
+pub mod physics;
 
 #[derive(Debug, thiserror::Error)]
 pub enum EngineError {

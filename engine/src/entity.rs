@@ -3,8 +3,10 @@ use glam::Vec2;
 #[derive(Debug, Clone, Copy)]
 pub struct Entity {
     pub id: u32,
+    pub last_position: Vec2,
     pub position: Vec2,
     pub velocity: Vec2,
+    pub last_rotation: f32,
     pub rotation: f32,
     pub scale: Vec2,
     pub color: [f32; 4],
@@ -34,8 +36,10 @@ impl EntityStore {
         self.next_id += 1;
         self.entities.push(Entity {
             id,
+            last_position: position,
             position,
             velocity: Vec2::ZERO,
+            last_rotation: 0.0,
             rotation: 0.0,
             scale: Vec2::ONE,
             color: [1.0, 1.0, 1.0, 1.0],
